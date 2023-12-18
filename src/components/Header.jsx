@@ -5,7 +5,7 @@ export const Header = () => {
   return (
     <>
       <header className='app-header'>
-          <h1>Simple Quiz game with (Open Trivia DB)</h1>
+          <h1>Simple Quiz game</h1>
       </header>
       <Outlet/>
     </>

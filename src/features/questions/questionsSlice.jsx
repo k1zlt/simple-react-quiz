@@ -21,7 +21,7 @@ const initialState = {
 
 export const getQuestions = createAsyncThunk('questions/getQuestions', async (difficulty)=>{
     try{
-        const resp = await fetch(`https://the-trivia-api.com/v2/questions?limit=15&difficulties=${difficulty}`)
+        const resp = await fetch(`https://the-trivia-api.com/v2/questions?limit=5&difficulties=${difficulty}`)
         return resp.json()
     }catch(err){
         console.log(err);

@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Loader } from '../components/Loader'
-import { Progress } from '../components/Progress'
 import { Next } from '../components/Next'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -10,7 +9,7 @@ import { getQuestions, newAnswer } from '../features/questions/questionsSlice'
 export const Question = () => {
     const {difficulty} = useParams()
     const {gameMode} = useSelector(store => store.difficulty)
-    const {status, index, currentQuestion, answer} = useSelector(store => store.questions)
+    const {status, index, currentQuestion, answer, points} = useSelector(store => store.questions)
     const dispatch = useDispatch()
 
     useEffect(()=>{
@@ -32,18 +31,30 @@ export const Question = () => {
       {status === 'loading' && <Loader/>}
       {status === 'ready' && 
       <>
-      <Progress/>
+      <header className='progress'>
+        <p>Question <strong>{index+1}</strong> / 5</p>
+        <p>Current Score: <strong>{points}</strong> / 5</p>
+      </header>
       <div className='question-cont'>
         <div className='category' style={difficulty !== 'easy' ? styleCat : {}}>{difficulty} quiz</div>
-        <h4>{statement}</h4>
+        <h4 style={{
+          textAlign: 'center'
+        }}>{statement}</h4>
         <div className="options">
           {options?.map(option=>{
-            return <button key={option} className={`btn btn-option ${answer === option ? 
-            "answer" : ""} 
-            ${hasAnswered ? currentQuestion.correctAnswer === option
-            ? "correct" : "" : ""}`} 
-            disabled={hasAnswered}
-            onClick={()=>dispatch(newAnswer(option))}>{option}</button>
+            return <div><button key={option} className={`btn btn-option ${answer === option ? 
+              "answer" : ""} 
+              ${hasAnswered ? currentQuestion.correctAnswer === option
+              ? "correct" : "" : ""}`} 
+              disabled={hasAnswered}
+              onClick={()=>dispatch(newAnswer(option))}
+              style={
+                {
+                  marginTop: '10px',
+                  padding: '10px',
+                  width: '100%'
+                }
+              }>{option}</button></div>
           })}
         </div>
       </div> 

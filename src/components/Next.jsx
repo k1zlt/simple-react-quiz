@@ -3,6 +3,13 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { gameEnded, nextQuestion } from '../features/questions/questionsSlice'
 
+const NextStyle = {
+  display: 'block',
+  width: "100%",
+  padding: "10px",
+  marginTop: "10px"
+}
+
 export const Next = () => {
     const {index} = useSelector(store => store.questions)
 
@@ -15,10 +22,10 @@ export const Next = () => {
     }
 
   if(index < 4) return (
-    <button className='btn btn-ui' onClick={()=>dispatch(nextQuestion())}>Next</button>
+    <button style={NextStyle} className='btn btn-ui' onClick={()=>dispatch(nextQuestion())}>Next</button>
   )
   
   return (
-    <button className='btn btn-ui' onClick={handleFinish}>Finish</button>
+    <button style={NextStyle} className='btn btn-ui' onClick={handleFinish}>Finish</button>
   )
 }
